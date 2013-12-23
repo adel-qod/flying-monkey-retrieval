@@ -9,8 +9,8 @@ Style notes:
 	We're following Microsoft's .NET style guidlines as closly as possible.
 
 License:
-???
+BSD - 2 Clause 
 
 Contact Info:
 Adel Qodmani - mpcadel@gmail.com
-Sarah Homsi - ???
+Sarah Homsi - sarah.h.homsi@gmail.com
