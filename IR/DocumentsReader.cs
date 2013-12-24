@@ -32,22 +32,5 @@ namespace IR
             }
             return result;
         }
-
-        /// <summary>
-        /// A helper function that builds an index of term frequeincies for all files in a given directory.
-        /// </summary>
-        /// <param name="directoryPath"> The directory which contains the documents to be indexed </param>
-        /// <returns> An array of hash-tables for each file where keys are the unqiue terms and values are their frequencies for a given file </returns>
-        public static Hashtable[] BuildDocumentsFrequencyIndices(string directoryPath)
-        {
-            Hashtable[] files_indexes;
-            string[] directories = Directory.GetFiles(directoryPath, "*.txt");
-            files_indexes = new Hashtable[directories.Length];
-            for (int i = 0; i < directories.Length; i++)
-            {
-                files_indexes[i] = BuildDocumentFrequencyIndex(directories[i]);
-            }
-            return files_indexes;
-        }
     }
 }
