@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2013, Adel Qodmani, Sarah Homsi
+// Copyright (c) 2013, Adel Qodmani, Sarah Homsi
 // All rights reserved.
 
 using System;
@@ -287,7 +287,7 @@ namespace IR
         /// 
         /// </summary>
         /// <param name="query"> A pre-processed query </param>
-        /// <returns> The frequency vectory of the query </returns>
+        /// <returns> The frequency vectory of the query or null if no term matches the query in the whole system </returns>
         private double[] TextToQueryVector(string query)
         {
             double[] queryVector = new double[TotalTermsCount];
@@ -298,7 +298,12 @@ namespace IR
                 if (uniqueTerms.ContainsKey(word))
                     queryVector[(int)uniqueTerms[word]] += 1;
             }
-            return queryVector;
+            foreach (var item in queryVector)
+            {
+                if (item != 0)
+                    return queryVector;
+            }
+            return null;
         }
 
         /// <summary>
@@ -424,7 +429,8 @@ namespace IR
         /// <param name="query"> The users pre-processed query </param>
         /// <param name="threshold"> The amount of the relevant documents to return; by default it's 0 which means return all documents </param>
         /// <param name="useVectorDistance"> Set to true if you want to use VectorDistance, otherwise the system will use Cosine similarity </param>
-        /// <returns> Array of DocumentDistances sorted where the first element is the most relevant and the last is the least relevant </returns>
+        /// <returns> Array of DocumentDistances sorted where the first element is the most relevant and the last is the least relevant.
+        ///             It returns null if no document has any of the terms in the query </returns>
         ///  <exception cref="System.ArgumentNullException"> Thrown if query is null</exception>
         /// <exception cref="System.ArgumentException"> Thrown if the query is an empty string </exception>
         public DocumentDistance[] GetRelevantDocuments(string query, int threshold = 0, bool useVectorDistance = false)
@@ -434,6 +440,8 @@ namespace IR
             if (query.Length == 0)
                 throw new ArgumentException("Parameter cannot be of length 0", "query");
             double[] queryVector = this.TextToQueryVector(query);
+            if (queryVector == null)
+                return null;
             if (useVectorDistance)
             {
                 this.CalculateDistances(queryVector);
