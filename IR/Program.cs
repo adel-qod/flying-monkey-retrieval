@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,9 +16,14 @@ namespace IR
             Debug.Listeners.Clear();
             Debug.Listeners.Add(new TextWriterTraceListener(Console.Out));
 
-            String path = @"C:\Users\Adel\Documents\Visual Studio 2010\Projects\IR\IR\Tests";
+            String path = @"C:\Users\Adel\Documents\Visual Studio 2010\Projects\IR\IR\Sarah's test";
             VectorModeler mySystem = new VectorModeler(path);
-            DocumentDistance[] docs = mySystem.GetRelevantDocuments("do i do", threshold: 0, useVectorDistance: true);
+            DocumentDistance[] docs = mySystem.GetRelevantDocuments("sadadasqr", threshold: 1, useVectorDistance: true);
+            if (docs == null)
+            {
+                Console.WriteLine("Hey! what kind of query is that?");
+                System.Environment.Exit(0);
+            }
             for (int i = 0; i < docs.Length; i++)
             {
                 Console.WriteLine(docs[i].docName);
