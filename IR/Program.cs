@@ -16,9 +16,9 @@ namespace IR
             Debug.Listeners.Clear();
             Debug.Listeners.Add(new TextWriterTraceListener(Console.Out));
 
-            String path = @"C:\Users\Adel\Documents\Visual Studio 2010\Projects\IR\IR\Sarah's test";
+            String path = @"C:\Users\Adel\Documents\Visual Studio 2010\Projects\IR\IR\Tests";
             VectorModeler mySystem = new VectorModeler(path);
-            DocumentDistance[] docs = mySystem.GetRelevantDocuments("sadadasqr", threshold: 1, useVectorDistance: true);
+            DocumentDistance[] docs = mySystem.GetRelevantDocuments("do i do", threshold: 1, useVectorDistance: true);
             if (docs == null)
             {
                 Console.WriteLine("Hey! what kind of query is that?");
